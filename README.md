@@ -1,1 +1,2 @@
-# GeorgeHanna
+# GeorgeHanna 
+I am building a quiz application that gives questions for the user to answer, and also gives the answer and says if the user gets it right or wrong. I want to build this application because I want to see how making a quiz application really looks like. In my UML design, I have the QuizApp class , with different branches. My questions and answers will use string. The score output will use the int method. I will use scanner as well.
