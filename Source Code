@@ -18,7 +18,7 @@ public class QuizApp extends Application {
 
     // Questions and Answers
     private final String[] questions = {
-            "Who is the best professor?",
+            "What is 1 + 1?",
             "Which programming language is this class taught?",
             "What is 5 + 3?",
             "What is H2O?",
@@ -30,7 +30,7 @@ public class QuizApp extends Application {
             "What would you rate this quiz out of 10?"
     };
 
-    private final String[] answers = {"Professor Yeddula", "Java", "8", "Water", "4", "Auburn Hills", "soccer", "yes", "yes", "10"};
+    private final String[] answers = {"2", "Java", "8", "Water", "4", "Auburn Hills", "soccer", "yes", "yes", "10"};
 
     private int currentQuestionIndex = 0;
     private int score = 0;
