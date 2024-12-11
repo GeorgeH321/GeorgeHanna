@@ -1,4 +1,5 @@
-/*
+
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -24,10 +25,12 @@ public class QuizApp extends Application {
             "What is the square root of 16?",
             "Where is Oakland University located?",
             "What sport does Messi play?",
-            "Is grass green?"
+            "Is grass green?",
+            "Is Oakland University a college?",
+            "What would you rate this quiz out of 10?"
     };
 
-    private final String[] answers = {"Professor Yeddula", "Java", "8", "Water", "4", "Auburn Hills", "soccer", "yes"};
+    private final String[] answers = {"Professor Yeddula", "Java", "8", "Water", "4", "Auburn Hills", "soccer", "yes", "yes", "10"};
 
     private int currentQuestionIndex = 0;
     private int score = 0;
@@ -186,4 +189,6 @@ public class QuizApp extends Application {
  */
 
     
+
+
 
