@@ -35,7 +35,7 @@ public class QuizApp extends Application {
     private int currentQuestionIndex = 0;
     private int score = 0;
     private Timeline timer;
-    private int timeLeft = 15; // 15 seconds per question
+    private int timeLeft = 30; // 30 seconds per question
 
     // UI Elements
     private Label questionLabel;
@@ -78,7 +78,7 @@ public class QuizApp extends Application {
         feedbackLabel = new Label();
         scoreLabel = new Label("Score: 0");
         progressLabel = new Label();
-        timerLabel = new Label("Time left: 15 seconds");
+        timerLabel = new Label("Time left: 30 seconds");
 
         // Layout using VBox
         VBox layout = new VBox(15);
@@ -169,8 +169,8 @@ public class QuizApp extends Application {
     }
 
     private void resetTimer() {
-        timeLeft = 15;
-        timerLabel.setText("Time left: 15 seconds");
+        timeLeft = 30;
+        timerLabel.setText("Time left: 30 seconds");
         if (timer != null) {
             timer.stop();
             timer.playFromStart();
