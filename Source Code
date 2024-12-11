@@ -35,7 +35,7 @@ public class QuizApp extends Application {
     private int currentQuestionIndex = 0;
     private int score = 0;
     private Timeline timer;
-    private int timeLeft = 15; // 15 seconds per question
+    private int timeLeft = 30; // 30 seconds per question
 
     // UI Elements
     private Label questionLabel;
