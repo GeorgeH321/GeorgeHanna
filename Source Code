@@ -1,0 +1,189 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.quizapp1;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class QuizApp extends Application {
+
+    // Questions and Answers
+    private final String[] questions = {
+            "Who is the best professor?",
+            "Which programming language is this class taught?",
+            "What is 5 + 3?",
+            "What is H2O?",
+            "What is the square root of 16?",
+            "Where is Oakland University located?",
+            "What sport does Messi play?",
+            "Is grass green?"
+    };
+
+    private final String[] answers = {"Professor Yeddula", "Java", "8", "Water", "4", "Auburn Hills", "soccer", "yes"};
+
+    private int currentQuestionIndex = 0;
+    private int score = 0;
+    private Timeline timer;
+    private int timeLeft = 15; // 15 seconds per question
+
+    // UI Elements
+    private Label questionLabel;
+    private TextField answerField;
+    private Button submitButton, nextButton, previousButton, restartButton;
+    private Label feedbackLabel;
+    private Label scoreLabel;
+    private Label progressLabel;
+    private Label timerLabel;
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Enhanced Quiz Application");
+
+        // Question Label
+        questionLabel = new Label();
+        questionLabel.setStyle("-fx-font-size: 18; -fx-font-weight: bold;");
+
+        // Answer Input Field
+        answerField = new TextField();
+        answerField.setPromptText("Enter your answer here");
+
+        // Submit Button
+        submitButton = new Button("Submit");
+        submitButton.setOnAction(e -> handleSubmit());
+
+        // Next Button
+        nextButton = new Button("Next");
+        nextButton.setOnAction(e -> navigateQuestion(1));
+
+        // Previous Button
+        previousButton = new Button("Previous");
+        previousButton.setOnAction(e -> navigateQuestion(-1));
+
+        // Restart Button
+        restartButton = new Button("Restart Quiz");
+        restartButton.setOnAction(e -> restartQuiz());
+
+        // Feedback, Score, Progress, Timer
+        feedbackLabel = new Label();
+        scoreLabel = new Label("Score: 0");
+        progressLabel = new Label();
+        timerLabel = new Label("Time left: 15 seconds");
+
+        // Layout using VBox
+        VBox layout = new VBox(15);
+        layout.setPadding(new Insets(20));
+        layout.getChildren().addAll(questionLabel, answerField, submitButton, nextButton, previousButton, restartButton, feedbackLabel, scoreLabel, progressLabel, timerLabel);
+
+        Scene scene = new Scene(layout, 400, 300);
+        primaryStage.setScene(scene);
+
+        // Load the first question
+        loadQuestion();
+        startTimer();
+
+        primaryStage.show();
+    }
+
+    private void loadQuestion() {
+        if (currentQuestionIndex < questions.length) {
+            questionLabel.setText("Question " + (currentQuestionIndex + 1) + ": " + questions[currentQuestionIndex]);
+            answerField.clear();
+            feedbackLabel.setText("");
+            progressLabel.setText("Question " + (currentQuestionIndex + 1) + "/" + questions.length);
+            resetTimer();
+        } else {
+            // Quiz completed
+            questionLabel.setText("Quiz Completed!");
+            answerField.setDisable(true);
+            submitButton.setDisable(true);
+            nextButton.setDisable(true);
+            previousButton.setDisable(true);
+            feedbackLabel.setText("Your final score is: " + score + "/" + questions.length);
+            timer.stop();
+        }
+    }
+
+    private void handleSubmit() {
+        String userAnswer = answerField.getText().trim();
+        if (!userAnswer.isEmpty()) {
+            // Check the answer
+            String correctAnswer = answers[currentQuestionIndex];
+            if (userAnswer.equalsIgnoreCase(correctAnswer)) {
+                feedbackLabel.setText("Correct!");
+                score++;
+            } else {
+                feedbackLabel.setText("Wrong! Correct answer: " + correctAnswer);
+            }
+
+            // Update the score label
+            scoreLabel.setText("Score: " + score);
+        } else {
+            feedbackLabel.setText("Please enter an answer.");
+        }
+    }
+
+    private void navigateQuestion(int direction) {
+        int newIndex = currentQuestionIndex + direction;
+        if (newIndex >= 0 && newIndex < questions.length) {
+            currentQuestionIndex = newIndex;
+            loadQuestion();
+        }
+    }
+
+    private void restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        scoreLabel.setText("Score: 0");
+        answerField.setDisable(false);
+        submitButton.setDisable(false);
+        nextButton.setDisable(false);
+        previousButton.setDisable(false);
+        feedbackLabel.setText("");
+        loadQuestion();
+        startTimer();
+    }
+
+    private void startTimer() {
+        timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            timeLeft--;
+            timerLabel.setText("Time left: " + timeLeft + " seconds");
+            if (timeLeft <= 0) {
+                timer.stop();
+                feedbackLabel.setText("Time's up! Moving to the next question.");
+                navigateQuestion(1);
+            }
+        }));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
+    }
+
+    private void resetTimer() {
+        timeLeft = 15;
+        timerLabel.setText("Time left: 15 seconds");
+        if (timer != null) {
+            timer.stop();
+            timer.playFromStart();
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+
+
+/**
+ *
+ * @author georgehanna
+ */
+
+    
+
